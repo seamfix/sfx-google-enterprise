@@ -5,9 +5,9 @@ sfx-google-enterprise is a wrapper aound Google Android Enterprise Java library.
 ### Dependency
 ```
 <dependency>
-    <groupId>com.seamfix.api</groupId>
-    <artifactId>googledownloader</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+  <groupId>com.seamfix.sdk</groupId>
+  <artifactId>sfx-google-enterprise</artifactId>
+  <version>0.0.1</version>
 </dependency>
 ```
 ### Implementation
