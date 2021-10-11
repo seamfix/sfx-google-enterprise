@@ -17,9 +17,9 @@ public class SfxAndroidEnterprise {
     private static AndroidManagement androidManagement;
 
     /** Builds an Android Management API client. */
-    private static AndroidManagement getAndroidManagementClient(String serviceAccountCredentialFile , String appName)
+    private static AndroidManagement getAndroidManagementClient(String serviceAccountCredentialFilePath , String appName)
             throws IOException, GeneralSecurityException {
-        try (FileInputStream input = new FileInputStream(serviceAccountCredentialFile)) {
+        try (FileInputStream input = new FileInputStream(serviceAccountCredentialFilePath)) {
             GoogleCredential credential = GoogleCredential.fromStream(input).createScoped(Collections.singleton(OAUTH_SCOPE));
             return new AndroidManagement.Builder(
                     GoogleNetHttpTransport.newTrustedTransport(),
@@ -29,8 +29,8 @@ public class SfxAndroidEnterprise {
         }
     }
 
-    public static void init(String serviceAccountCredentialFile, String appName) throws IOException, GeneralSecurityException {
-        androidManagement = getAndroidManagementClient(serviceAccountCredentialFile, appName);
+    public static void init(String serviceAccountCredentialFilePath, String appName) throws IOException, GeneralSecurityException {
+        androidManagement = getAndroidManagementClient(serviceAccountCredentialFilePath, appName);
     }
 
     public static void createEnterprise(String projectId) throws IOException {
