@@ -26,15 +26,14 @@ public class CreateEnterprise {
                                    String callBackUrl,
                                    String enterpriseToken) throws IOException {
 
-        if (enterpriseToken == null || enterpriseToken.isEmpty()) { //user has not signed up with Google.
+        signupUrl = androidManagement
+                .signupUrls()
+                .create()
+                .setProjectId(googleCloudConsoleProjectID)
+                .setCallbackUrl(callBackUrl)
+                .execute();
 
-            System.out.println("Creating signup URL...");
-            signupUrl = androidManagement
-                            .signupUrls()
-                            .create()
-                            .setProjectId(googleCloudConsoleProjectID)
-                            .setCallbackUrl(callBackUrl)
-                            .execute();
+        if (enterpriseToken == null || enterpriseToken.isEmpty()) { //user has not signed up with Google.
             System.out.print("To sign up for a new enterprise, open this URL in your browser: ");
             System.out.println(signupUrl.getUrl());
 
