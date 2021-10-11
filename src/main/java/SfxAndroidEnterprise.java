@@ -43,7 +43,7 @@ public class SfxAndroidEnterprise {
      * you set this value to null, we will return a redirect result which means that the user should be redirected to
      * Google enterprise creation page to create his enterprise.
      * */
-    public Result createEnterprise(String googleCloudConsoleProjectID,
+    public static Result createEnterprise(String googleCloudConsoleProjectID,
                                    String callBackUrl,
                                    String enterpriseToken) throws IOException {
 
