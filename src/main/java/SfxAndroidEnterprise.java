@@ -16,12 +16,17 @@ public class SfxAndroidEnterprise {
 
     private static AndroidManagement androidManagement;
 
-    public AndroidManagement getAndroidManagement() {
-        return androidManagement;
-    }
-
-    public void setAndroidManagement(AndroidManagement androidMngt) {
-        androidManagement = androidMngt;
+    /** Builds an Android Management API client. */
+    private static AndroidManagement getAndroidManagementClient(String serviceAccountCredentialFile , String appName)
+            throws IOException, GeneralSecurityException {
+        try (FileInputStream input = new FileInputStream(serviceAccountCredentialFile)) {
+            GoogleCredential credential = GoogleCredential.fromStream(input).createScoped(Collections.singleton(OAUTH_SCOPE));
+            return new AndroidManagement.Builder(
+                    GoogleNetHttpTransport.newTrustedTransport(),
+                    JacksonFactory.getDefaultInstance(),
+                    credential
+            ).setApplicationName(appName).build();
+        }
     }
 
     public static void init(String serviceAccountCredentialFile, String appName) throws IOException, GeneralSecurityException {
@@ -43,19 +48,11 @@ public class SfxAndroidEnterprise {
         createEnrollmentToken.createEnrollmentToken(androidManagement, outputType, enterpriseName, policyId);
     }
 
-    /** Builds an Android Management API client. */
-    private static AndroidManagement getAndroidManagementClient(String serviceAccountCredentialFile , String appName)
-            throws IOException, GeneralSecurityException {
-        try (FileInputStream input = new FileInputStream(serviceAccountCredentialFile)) {
-            GoogleCredential credential =
-                    GoogleCredential.fromStream(input)
-                            .createScoped(Collections.singleton(OAUTH_SCOPE));
-            return new AndroidManagement.Builder(
-                    GoogleNetHttpTransport.newTrustedTransport(),
-                    JacksonFactory.getDefaultInstance(),
-                    credential)
-                    .setApplicationName(appName)
-                    .build();
-        }
+    public AndroidManagement getAndroidManagement() {
+        return androidManagement;
+    }
+
+    public void setAndroidManagement(AndroidManagement androidMngt) {
+        androidManagement = androidMngt;
     }
 }
