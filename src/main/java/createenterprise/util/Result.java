@@ -1,30 +1,22 @@
 package createenterprise.util;
 
+import com.google.api.services.androidmanagement.v1.model.SignupUrl;
+
 public class Result {
 
-    private Type resultType;
-    private String signUpUrl;
+    private SignupUrl signUpUrl;
     private String enterpriseName;
 
-    public Result(Type resultType, String signUpUrl, String enterpriseName) {
-        this.resultType = resultType;
+    public Result(SignupUrl signUpUrl, String enterpriseName) {
         this.signUpUrl = signUpUrl;
         this.enterpriseName = enterpriseName;
     }
 
-    public Type getResultType() {
-        return resultType;
-    }
-
-    public void setResultType(Type resultType) {
-        this.resultType = resultType;
-    }
-
-    public String getSignUpUrl() {
+    public SignupUrl getSignUpUrl() {
         return signUpUrl;
     }
 
-    public void setSignUpUrl(String signUpUrl) {
+    public void setSignUpUrl(SignupUrl signUpUrl) {
         this.signUpUrl = signUpUrl;
     }
 

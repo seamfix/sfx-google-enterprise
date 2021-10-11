@@ -3,6 +3,7 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.androidmanagement.v1.AndroidManagement;
 import com.google.api.services.androidmanagement.v1.model.Policy;
+import com.google.api.services.androidmanagement.v1.model.SignupUrl;
 import createenterprise.CreateEnterprise;
 import createenterprise.util.Result;
 
@@ -37,18 +38,23 @@ public class SfxAndroidEnterprise {
         androidManagement = getAndroidManagementClient(serviceAccountCredentialFilePath, appName);
     }
 
-    /** Creates a new enterprise. Returns the enterprise name.
+    /** Creates a new enterprise.
      * @param  googleCloudConsoleProjectID: your Google cloud console project ID
-     * @param enterpriseToken: the token value returned after the user has completed enterprise creation with Google. If
-     * you set this value to null, we will return a redirect result which means that the user should be redirected to
-     * Google enterprise creation page to create his enterprise.
-     * */
-    public static Result createEnterprise(String googleCloudConsoleProjectID,
-                                   String callBackUrl,
-                                   String enterpriseToken) throws IOException {
-
+     * @param callBackUrl: The url of the website google should redirect to when the user has created an enterprise.
+     */
+    public static Result createEnterprise(String googleCloudConsoleProjectID, String callBackUrl) throws IOException {
         CreateEnterprise createEnterprise = new CreateEnterprise(androidManagement);
-        return createEnterprise.createEnterprise(googleCloudConsoleProjectID, callBackUrl, enterpriseToken);
+        return createEnterprise.createEnterprise(googleCloudConsoleProjectID, callBackUrl);
+    }
+
+    /**
+     * This process will get the name of the enterprise.
+     * ***/
+    public static Result completeEnterpriseCreation(String googleCloudConsoleProjectID,
+                                                           SignupUrl signupUrl,
+                                                           String enterpriseToken) throws IOException  {
+        CreateEnterprise createEnterprise = new CreateEnterprise(androidManagement);
+        return createEnterprise.completeEnterpriseCreation(googleCloudConsoleProjectID, signupUrl, enterpriseToken);
     }
 
     public static void createPolicy(String enterpriseName, String policyId, Policy policy) throws IOException {
