@@ -5,28 +5,37 @@ import java.io.IOException;
 
 public class CreateEnrollmentToken {
 
+    private AndroidManagement androidManagement;
+
+    public CreateEnrollmentToken(AndroidManagement androidManagement) {
+        this.androidManagement = androidManagement;
+    }
+
     /** Creates an enrollment token. */
-    public String createEnrollmentToken(AndroidManagement androidManagement, OutputType outputType, String enterpriseName, String policyId)
+    public String createEnrollmentToken(OutputType outputType, String enterpriseName, String policyId)
             throws IOException {
         System.out.println("Creating enrollment token...");
-        EnrollmentToken token =
-                new EnrollmentToken().setPolicyName(policyId).setDuration("86400s");
+        EnrollmentToken token = new EnrollmentToken().setPolicyName(policyId).setDuration("86400s");
+        String enrollmentTokenValue;
 
         if(outputType == OutputType.URL_STRING) {
-            return androidManagement
+            enrollmentTokenValue = androidManagement
                     .enterprises()
                     .enrollmentTokens()
                     .create(enterpriseName, token)
                     .execute()
                     .getValue();
         } else {
-            return androidManagement
+            enrollmentTokenValue = androidManagement
                     .enterprises()
                     .enrollmentTokens()
                     .create(enterpriseName, token)
                     .execute()
                     .getQrCode();
         }
+
+        System.out.println("Enrollment token created successfully:\n"+ enrollmentTokenValue);
+        return enrollmentTokenValue;
     }
 
 
