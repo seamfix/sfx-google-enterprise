@@ -40,11 +40,6 @@ Initialize the library
  An example of how to create a Policy that installs Bioregistra can be seen here:
  https://github.com/seamfix/SampleAndroidEnterprise/blob/61ba4b09aded5dfa10ed7498ca5c594be4b781dd/src/main/java/SampleAppTest.java#L131
  
- ### Provision a device
- ```
- String url = SfxAndroidEnterprise.createEnrollmentToken(CreateEnrollmentToken.OutputType.URL_STRING, "YOUR ENTERPRISE NAME", "POLICY ID");
- System.out.println("*******: enrollment token: "+url);
- ```
  
  ### Provisioning a device
  There are two modes:
@@ -56,7 +51,8 @@ Initialize the library
  
  #### URL link (for work profile mode)
  ```
- String enrollmentToken = SfxAndroidEnterprise.createEnrollmentToken(CreateEnrollmentToken.OutputType.URL_STRING, "enterprise name", "policy ID");
+ String url = SfxAndroidEnterprise.createEnrollmentToken(CreateEnrollmentToken.OutputType.URL_STRING, "YOUR ENTERPRISE NAME", "POLICY ID");
+ System.out.println("*******: enrollment token: "+url);
  ```
 To provision a device in work profile mode, the following link should be opened on the browser of the device:
 https://enterprise.google.com/android/enroll?et=YOUR_ENROLLMENT_TOKEN
