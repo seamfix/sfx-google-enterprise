@@ -5,8 +5,14 @@ import java.io.IOException;
 
 public class CreatePolicy {
 
+    private AndroidManagement androidManagement;
+
+    public CreatePolicy(AndroidManagement androidManagement) {
+        this.androidManagement = androidManagement;
+    }
+
     /** Sets the policy of the given id to the given value. */
-    public void setPolicy(AndroidManagement androidManagement, String enterpriseName, String policyId, Policy policy)
+    public void setPolicy(String enterpriseName, String policyId, Policy policy)
             throws IOException {
         System.out.println("Setting policy...");
         String name = enterpriseName + "/policies/" + policyId;
@@ -15,5 +21,6 @@ public class CreatePolicy {
                 .policies()
                 .patch(name, policy)
                 .execute();
+        System.out.println("Setting policy completed!");
     }
 }
