@@ -13,21 +13,38 @@ sfx-google-enterprise is a wrapper aound Google Android Enterprise Java library.
 ### Implementation
 Initialize the library
 ```
- SfxAndroidEnterprise.init("PATH TO YOUR SERVICE ACCOUNT FILE", "YOUR APP NAME");
+ SfxAndroidEnterprise.init("PATH TO YOUR SERVICE ACCOUNT", "YOUR APP NAME");
  ```
  
  ### Create an enterprise
  ```
- SfxAndroidEnterprise.createEnterprise("YOUR GOOGLE CLOUD CONSOLE PROJECT ID");
+ Result result = SfxAndroidEnterprise.createEnterprise("veyanjeffmdmproject", "https://www.wwe.com");
+ //Redirect the user to this url to begin the signup process:
+ System.out.println("*******: SignupUrl name -> "+result.getSignUpUrl().getName());
+ System.out.println("*******: SignupUrl url -> "+result.getSignUpUrl().getUrl());
  ```
- On your terminal, You will be asked to follow instrctions to complete the process.
+ 
+ ### Complete enterprise creation
+ ```
+ SignupUrl signupUrl = new SignupUrl();
+ signupUrl.setName("");
+ signupUrl.setUrl("");
+ Result r = SfxAndroidEnterprise.completeEnterpriseCreation("",signupUrl, "");
+ System.out.println("*******: Enterprise created with name -> "+r.getEnterpriseName());
+ ```
  
  ### Create a policy
  ```
- SfxAndroidEnterprise.createPolicy("Enterprise name", "policy ID", new Policy());
+ SfxAndroidEnterprise.createPolicy("YOUR ENTERPRISE NAME", "POLICY ID", new Policy());
  ```
  An example of how to create a Policy that installs Bioregistra can be seen here:
  https://github.com/seamfix/SampleAndroidEnterprise/blob/61ba4b09aded5dfa10ed7498ca5c594be4b781dd/src/main/java/SampleAppTest.java#L131
+ 
+ ### Provision a device
+ ```
+ String url = SfxAndroidEnterprise.createEnrollmentToken(CreateEnrollmentToken.OutputType.URL_STRING, "YOUR ENTERPRISE NAME", "POLICY ID");
+ System.out.println("*******: enrollment token: "+url);
+ ```
  
  ### Provisioning a device
  There are two modes:
