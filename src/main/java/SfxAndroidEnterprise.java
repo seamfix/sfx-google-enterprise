@@ -78,11 +78,11 @@ public class SfxAndroidEnterprise {
         return createEnrollmentToken.createEnrollmentToken(outputType, enterpriseName, policyId);
     }
 
-    public AndroidManagement getAndroidManagement() {
+    public static AndroidManagement getAndroidManagement() {
         return androidManagement;
     }
 
-    public void setAndroidManagement(AndroidManagement androidMngt) {
+    public static void setAndroidManagement(AndroidManagement androidMngt) {
         androidManagement = androidMngt;
     }
 }
