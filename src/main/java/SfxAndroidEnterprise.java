@@ -2,6 +2,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.androidmanagement.v1.AndroidManagement;
+import com.google.api.services.androidmanagement.v1.model.Device;
+import com.google.api.services.androidmanagement.v1.model.ListDevicesResponse;
 import com.google.api.services.androidmanagement.v1.model.Policy;
 import com.google.api.services.androidmanagement.v1.model.SignupUrl;
 import createenterprise.CreateEnterprise;
@@ -10,7 +12,9 @@ import createenterprise.util.Result;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class SfxAndroidEnterprise {
 
@@ -77,6 +81,20 @@ public class SfxAndroidEnterprise {
         CreateEnrollmentToken createEnrollmentToken = new CreateEnrollmentToken(androidManagement);
         return createEnrollmentToken.createEnrollmentToken(outputType, enterpriseName, policyId);
     }
+
+    /**
+     * Returns a list of all devices enrolled under the enterprise.
+     **/
+    public static List<Device> getAllDevices(String enterpriseName) throws IOException {
+        ListDevicesResponse response = androidManagement
+                        .enterprises()
+                        .devices()
+                        .list(enterpriseName)
+                        .execute();
+        return response.getDevices() == null
+                ? new ArrayList<Device>() : response.getDevices();
+    }
+
 
     public static AndroidManagement getAndroidManagement() {
         return androidManagement;
